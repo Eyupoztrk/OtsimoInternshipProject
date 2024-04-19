@@ -15,8 +15,13 @@ public class PaintManager : MonoBehaviour
     public Bucket activeBucket;
     private string activeColorOfBrush;
     public bool CanPaint;
-    
-    
+
+    private void Start()
+    {
+        activeBucket.color = Color.gray;
+    }
+
+
     public void SetBrushColor(string color)
     {
         UIManager.instance.isColorPanelOpen = true;
@@ -55,6 +60,7 @@ public class PaintManager : MonoBehaviour
             UIManager.instance.SetImage(UIManager.instance.brushObject,UIManager.instance.BucketImage);
             DrawManager.intance.canUseEraser = false;
             DrawManager.intance.canDraw = false;
+            Stamp.instance.canUserStamp = false;
         }
     }
 

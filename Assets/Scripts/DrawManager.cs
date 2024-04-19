@@ -21,6 +21,7 @@ public class DrawManager : MonoBehaviour
    public bool canDraw;
    public bool ClickedEraserButton;
    private string activeColorOfBrush;
+   public int sortingLayerCounter = 1;
 
    public RawImage brushSizeImage;
 
@@ -81,6 +82,7 @@ public class DrawManager : MonoBehaviour
      {
        UIManager.instance.SetImage(UIManager.instance.brushObject,UIManager.instance.EraserImage);
        PaintManager.instance.CanPaint = false;
+       Stamp.instance.canUserStamp = false;
        activeBrush.SetColor(ColorEnum.Colors.white);
        
      }
@@ -94,9 +96,13 @@ public class DrawManager : MonoBehaviour
 
    public void SetPen()
    {
+     
      UIManager.instance.SetImage(UIManager.instance.brushObject,UIManager.instance.penImage);
      PaintManager.instance.CanPaint = false;
+     Stamp.instance.canUserStamp = false;
      canDraw = true;
+     Stamp.instance.canUserStamp = false;
+     
    }
 
    public void Undo()

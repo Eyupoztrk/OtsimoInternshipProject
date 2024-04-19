@@ -16,7 +16,9 @@ public  class UIManager : MonoBehaviour
     }
 
     public GameObject ColorPanel;
+    public GameObject StampPanel;
     public bool isColorPanelOpen;
+    public bool isStampPanelOpen;
     public GameObject sizeInfoCircle;
     public GameObject brushObject;
     public Image penImage;
@@ -32,8 +34,15 @@ public  class UIManager : MonoBehaviour
 
     public void OpenColorPanel()
     {
+        DrawManager.intance.canUseEraser = false;
         isColorPanelOpen = !isColorPanelOpen;
         SetActivePanel(ColorPanel,isColorPanelOpen);
+    }
+    
+    public void OpenStampPanel()
+    {
+        isStampPanelOpen = !isStampPanelOpen;
+        SetActivePanel(StampPanel,isStampPanelOpen);
     }
 
     public void SetColor(GameObject obj,Color color)

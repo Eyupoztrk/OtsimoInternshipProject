@@ -18,6 +18,7 @@ public class Drawing : MonoBehaviour
     public float size;
     private Brush _brush;
 
+
     private void Start()
     {
         _brush = DrawManager.intance.activeBrush;
@@ -26,16 +27,23 @@ public class Drawing : MonoBehaviour
 
     private void OnMouseDown()
     {
+
+        if (!Stamp.instance.canUserStamp)
+        {
+            isInObject = true;
+            SetBrush();
+            DrawManager.intance.canDraw = true;
+            var newLine = Instantiate(_brush.Line);
+            lineCopy = newLine;
+            DrawManager.intance.brushes.Push(lineCopy);
+            LocalBrushes.Add(lineCopy.gameObject);
+            previousPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+            /* lineCopy.sortingOrder = DrawManager.intance.sortingLayerCounter + 1;
+             DrawManager.intance.sortingLayerCounter++;*/
+        }
         
-        isInObject = true;
-      SetBrush();
-      DrawManager.intance.canDraw = true;
-      var newLine = Instantiate(_brush.Line);
-      lineCopy = newLine;
-      DrawManager.intance.brushes.Push(lineCopy);
-      LocalBrushes.Add(lineCopy.gameObject);
-      previousPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-  }
+    }
 
   private void OnMouseDrag()
    {

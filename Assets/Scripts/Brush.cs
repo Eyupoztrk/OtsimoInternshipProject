@@ -37,7 +37,6 @@ public class Brush : MonoBehaviour
 
     public void SetSize()
     {
-        Debug.Log("www");
         line.SetWidth(size,size);
     }
 

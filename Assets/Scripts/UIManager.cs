@@ -57,7 +57,11 @@ public  class UIManager : MonoBehaviour
     {
         obj.GetComponent<Image>().sprite = image.sprite;
     }
-    
+
+    public void OpenHomeScene(string sceneName)
+    {
+        OpenSceneManager.instance.OpenScene(sceneName);
+    }
 
     
 

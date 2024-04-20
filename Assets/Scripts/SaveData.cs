@@ -10,41 +10,43 @@ public class SaveData : MonoBehaviour
     [SerializeField] private List<GameObject> _lineRenderers;
     [SerializeField] private List<GameObject> _paintingObject;
     [SerializeField] private GameObject Brush;
-    
-
-    //private LineRenderer lineRenderer;
     private int saveCounter = 0;
 
-   // public List<Vector3> positionsDict = new List<Vector3>();
-     //Dictionary<int, Vector3> positions = new Dictionary<int, Vector3>();
-     private Datas data;
+    private void Start()
+    {
+        if (OpenSceneManager.instance.isContinue)
+        {
+            Load(OpenSceneManager.instance.sceneIndex);
+        }
+    }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.A))
         {
-            Save();
+            Save(1);
         }
 
         if (Input.GetKeyDown(KeyCode.B))
         {
-            Load();
+            Load(0);
         }
     }
+    
 
-    private void Save()
+    public void Save(int sceneIndex)
     {
-        SaveLine();
-        SetPaintColor();
+        SaveLine(sceneIndex);
+        SetPaintColor(sceneIndex);
     }
 
-    private void Load()
+    private void Load(int sceneIndex)
     {
-        LoadLine();
-        LoadPaintColor();
+        LoadLine(sceneIndex);
+        LoadPaintColor(sceneIndex);
     }
 
-    private void SaveLine()
+    private void SaveLine(int sceneIndex)
     {
         _lineRenderers = GameObject.FindGameObjectsWithTag("brush").ToList();
 
@@ -54,58 +56,58 @@ public class SaveData : MonoBehaviour
             for (int i = 0; i < item.GetComponent<LineRenderer>().positionCount; i++)
             {
                
-                PlayerPrefs.SetFloat(saveCounter + "LinePositionX_" + i, item.GetComponent<LineRenderer>().GetPosition(i).x);
-                PlayerPrefs.SetFloat(saveCounter + "LinePositionY_" + i, item.GetComponent<LineRenderer>().GetPosition(i).y);
-                PlayerPrefs.SetFloat(saveCounter + "LinePositionZ_" + i, item.GetComponent<LineRenderer>().GetPosition(i).z);
+                PlayerPrefs.SetFloat(saveCounter + "LinePositionX_" + i +""+sceneIndex, item.GetComponent<LineRenderer>().GetPosition(i).x);
+                PlayerPrefs.SetFloat(saveCounter + "LinePositionY_" + i +""+sceneIndex, item.GetComponent<LineRenderer>().GetPosition(i).y);
+                PlayerPrefs.SetFloat(saveCounter + "LinePositionZ_" + i +""+sceneIndex, item.GetComponent<LineRenderer>().GetPosition(i).z);
 
             }
-            PlayerPrefs.SetInt(saveCounter +"LinePositionCount", positionCount);
-            SaveColor(saveCounter+"color",item.GetComponent<LineRenderer>().startColor);
-            PlayerPrefs.SetFloat(saveCounter + "size",item.GetComponent<LineRenderer>().startWidth);
+            PlayerPrefs.SetInt(saveCounter +"LinePositionCount" +""+sceneIndex, positionCount);
+            SaveColor(saveCounter+"color"+""+sceneIndex,item.GetComponent<LineRenderer>().startColor);
+            PlayerPrefs.SetFloat(saveCounter + "size" +""+sceneIndex,item.GetComponent<LineRenderer>().startWidth);
             PlayerPrefs.Save();
             saveCounter++;
 
         }
 
-        PlayerPrefs.SetInt("lineAmount", saveCounter);
+        PlayerPrefs.SetInt("lineAmount" +""+sceneIndex, saveCounter);
         saveCounter = 0;
 
 
 
     }
     
-    private void LoadLine()
+    private void LoadLine(int sceneIndex)
     {
-        if (PlayerPrefs.HasKey("lineAmount"))
+        if (PlayerPrefs.HasKey("lineAmount" +""+sceneIndex))
         {
-            var lineAmount = PlayerPrefs.GetInt("lineAmount");
+            var lineAmount = PlayerPrefs.GetInt("lineAmount" +""+sceneIndex);
             print(lineAmount);
             for (int j = 1; j < lineAmount; j++)
             {
                 var _brush =Instantiate(Brush);
                 var line = _brush.GetComponent<LineRenderer>();
                 //line.SetWidth(PlayerPrefs.GetFloat(j + "size"),PlayerPrefs.GetFloat(j + "size"));
-                line.SetWidth(PlayerPrefs.GetFloat(j + "size"),PlayerPrefs.GetFloat(j + "size"));
-                _brush.GetComponent<Brush>().Size =PlayerPrefs.GetFloat(j + "size");
+                line.SetWidth(PlayerPrefs.GetFloat(j + "size" +""+sceneIndex),PlayerPrefs.GetFloat(j + "size" +""+sceneIndex));
+                _brush.GetComponent<Brush>().Size =PlayerPrefs.GetFloat(j + "size" +""+sceneIndex);
 
-                print("start: " +PlayerPrefs.GetFloat(j+"size"));
+                print("start: " +PlayerPrefs.GetFloat(j+"size" +""+sceneIndex));
             
-                int positionCount = PlayerPrefs.GetInt(j +"LinePositionCount");
+                int positionCount = PlayerPrefs.GetInt(j +"LinePositionCount" +""+sceneIndex);
                 Vector3[] positions = new Vector3[positionCount];
             
                 for (int i = 0; i < positionCount; i++)
                 {
-                    float x = PlayerPrefs.GetFloat(j+"LinePositionX_" + i);
-                    float y = PlayerPrefs.GetFloat(j+"LinePositionY_" + i);
-                    float z = PlayerPrefs.GetFloat(j+"LinePositionZ_" + i);
+                    float x = PlayerPrefs.GetFloat(j+"LinePositionX_" + i +""+sceneIndex);
+                    float y = PlayerPrefs.GetFloat(j+"LinePositionY_" + i +""+sceneIndex);
+                    float z = PlayerPrefs.GetFloat(j+"LinePositionZ_" + i +""+sceneIndex);
                     positions[i] = new Vector3(x, y, z);
                 }
             
                 line.positionCount = positionCount;
                 line.SetPositions(positions);
-                line.startColor = GetColor(j + "color");
-                line.endColor = GetColor(j + "color");
-                print(PlayerPrefs.GetFloat(j+"size"));
+                line.startColor = GetColor(j + "color" +""+sceneIndex);
+                line.endColor = GetColor(j + "color" +""+sceneIndex);
+                print(PlayerPrefs.GetFloat(j+"size") +""+sceneIndex);
                 
 
             }
@@ -120,21 +122,21 @@ public class SaveData : MonoBehaviour
     {
         
         if(color.Equals(Color.blue))
-            PlayerPrefs.SetString(value,"blue");
+            PlayerPrefs.SetString(value,"blue" );
         else if(color.Equals(Color.red))
-            PlayerPrefs.SetString(value,"red");
+            PlayerPrefs.SetString(value,"red" );
         else if(color.Equals(Color.yellow))
-            PlayerPrefs.SetString(value,"yellow");
+            PlayerPrefs.SetString(value,"yellow" );
         else if(color.Equals(Color.green))
-            PlayerPrefs.SetString(value,"green");
+            PlayerPrefs.SetString(value,"green" );
         else if(color.Equals(Color.gray))
-            PlayerPrefs.SetString(value,"brown");
+            PlayerPrefs.SetString(value,"brown" );
         else if(color.Equals(Color.cyan))
-            PlayerPrefs.SetString(value,"cyan");
+            PlayerPrefs.SetString(value,"cyan" );
         else if(color.Equals(Color.black))
-            PlayerPrefs.SetString(value,"black");
+            PlayerPrefs.SetString(value,"black" );
         else if(color.Equals(Color.white))
-            PlayerPrefs.SetString(value,"white");
+            PlayerPrefs.SetString(value,"white" );
     }
     
     private Color GetColor(string value)
@@ -162,26 +164,28 @@ public class SaveData : MonoBehaviour
         }
     }
 
-    private void SetPaintColor()
+    private void SetPaintColor(int sceneIndex)
     {
         _paintingObject = GameObject.FindGameObjectsWithTag("paintingObject").ToList();
         var colorCouter = 0;
 
         foreach (var item in _paintingObject)
         {
-            SaveColor(colorCouter+"paintingObjectColor",item.GetComponent<SpriteRenderer>().color);
+            SaveColor(colorCouter+"paintingObjectColor"+""+sceneIndex,item.GetComponent<SpriteRenderer>().color);
+            colorCouter++;
         }
         
     }
 
-    private void LoadPaintColor()
+    private void LoadPaintColor(int sceneIndex)
     {
         _paintingObject = GameObject.FindGameObjectsWithTag("paintingObject").ToList();
         var colorCouter = 0;
         foreach (var item in _paintingObject)
         {
 
-            item.GetComponent<SpriteRenderer>().color = GetColor(colorCouter + "paintingObjectColor");
+            item.GetComponent<SpriteRenderer>().color = GetColor(colorCouter + "paintingObjectColor" +""+sceneIndex);
+            colorCouter++;
         }
         
     }

@@ -13,6 +13,8 @@ public class DrawManager : MonoBehaviour
       intance = this;
    }
 
+   
+
    //public List<GameObject> brushes;
    public Stack<LineRenderer> brushes = new Stack<LineRenderer>();
    public GameObject[] brushess;

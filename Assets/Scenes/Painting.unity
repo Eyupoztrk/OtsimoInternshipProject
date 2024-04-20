@@ -3866,6 +3866,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   line: {fileID: 968131464}
+  size: 0.1
 --- !u!120 &968131464
 LineRenderer:
   serializedVersion: 2

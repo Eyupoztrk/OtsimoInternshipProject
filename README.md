@@ -1,5 +1,7 @@
-# Otsimo 2024 Game Dev Internship Task
+[OtsimoProject.pdf](https://github.com/softflied/OtsimoInternshipProject/files/15049087/OtsimoProject.pdf)# Otsimo 2024 Game Dev Internship Task
 This is my implementatiton of task I received at eyupoztrk04@gmail.com
+## PDF Documentation of Game
+[OtsimoProject.pdf](https://github.com/softflied/OtsimoInternshipProject/files/15049089/OtsimoProject.pdf)
 
 ## Game Play
 

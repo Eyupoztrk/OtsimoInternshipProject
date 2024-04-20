@@ -14,8 +14,7 @@ public class DrawManager : MonoBehaviour
    }
 
    
-
-   //public List<GameObject> brushes;
+  
    public Stack<LineRenderer> brushes = new Stack<LineRenderer>();
    public GameObject[] brushess;
    public Brush activeBrush;
@@ -24,9 +23,15 @@ public class DrawManager : MonoBehaviour
    public bool ClickedEraserButton;
    private string activeColorOfBrush;
    public int sortingLayerCounter = 1;
-
    public RawImage brushSizeImage;
 
+   
+   
+   /// <summary>
+   /// When we want to change the color of the line to be drawn,
+   /// we use this function according to the color parameter.
+   /// </summary>
+   /// <param name="color"></param>
    public void SetBrushColor(string color)
    {
      activeColorOfBrush = color;
@@ -76,6 +81,11 @@ public class DrawManager : MonoBehaviour
        
    }
 
+   
+   /// <summary>
+   /// It sets the eraser, if we can use the eraser, that is,
+   /// if the eraser is selected, the active Brush color will be white and it will paint the canvas white.
+   /// </summary>
    public void SetEraser()
    {
      canUseEraser = !canUseEraser;
@@ -96,9 +106,10 @@ public class DrawManager : MonoBehaviour
      }
    }
 
+   
+   // Allows us to draw and deactivates other drawing tools
    public void SetPen()
    {
-     
      UIManager.instance.SetImage(UIManager.instance.brushObject,UIManager.instance.penImage);
      PaintManager.instance.CanPaint = false;
      Stamp.instance.canUserStamp = false;
@@ -109,6 +120,8 @@ public class DrawManager : MonoBehaviour
 
    public void Undo()
    {
+     
+     //It takes the lines in the stack and deletes the last one every time this function is called.
      if(brushes.Count != 0)
        Destroy(brushes.Pop().gameObject);
    }

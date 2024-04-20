@@ -14,8 +14,10 @@ public class SaveData : MonoBehaviour
 
     private void Start()
     {
+        //Loading saved data if continue button is pressed
         if (OpenSceneManager.instance.isContinue)
         {
+            // With SceneIndex we understand which scene it comes from
             Load(OpenSceneManager.instance.sceneIndex);
         }
     }
@@ -86,7 +88,6 @@ public class SaveData : MonoBehaviour
             {
                 var _brush =Instantiate(Brush);
                 var line = _brush.GetComponent<LineRenderer>();
-                //line.SetWidth(PlayerPrefs.GetFloat(j + "size"),PlayerPrefs.GetFloat(j + "size"));
                 line.SetWidth(PlayerPrefs.GetFloat(j + "size" +""+sceneIndex),PlayerPrefs.GetFloat(j + "size" +""+sceneIndex));
                 _brush.GetComponent<Brush>().Size =PlayerPrefs.GetFloat(j + "size" +""+sceneIndex);
 

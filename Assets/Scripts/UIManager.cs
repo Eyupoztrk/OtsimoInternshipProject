@@ -24,6 +24,9 @@ public  class UIManager : MonoBehaviour
     public Image penImage;
     public Image BucketImage;
     public Image EraserImage;
+    
+    
+    
     public void SetActivePanel(GameObject panel, bool active)
     {
         if (active)

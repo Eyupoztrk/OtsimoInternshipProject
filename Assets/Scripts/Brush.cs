@@ -13,7 +13,7 @@ public class Brush : MonoBehaviour
             return line;
         }
     }
-    public float size;
+    [SerializeField] private float size;
     public float Size
     {
         set
@@ -30,15 +30,19 @@ public class Brush : MonoBehaviour
 
     private void Start()
     {
-       // size = 0.1f;
+        // set line size when Brush active
         SetSize();
-       // SetColor(Colors.black);
     }
 
     public void SetSize()
     {
         line.SetWidth(size,size);
     }
+    
+    /// <summary>
+    /// Sets the colors of the lines by taking them from the Color Enum class
+    /// </summary>
+    /// <param name="color"></param>
 
     public void SetColor(ColorEnum.Colors color)
     {

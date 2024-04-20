@@ -5,6 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class SceneHelper : MonoBehaviour
 {
+    /// <summary>
+    /// Since the OpenSceneManager class is DontDestroyOnLoad, this class helps that class.
+    /// </summary>
+ 
     public void NewGame(string sceneName)
     {
         OpenSceneManager.instance.isContinue = false;

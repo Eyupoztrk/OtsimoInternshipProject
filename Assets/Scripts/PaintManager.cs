@@ -22,6 +22,11 @@ public class PaintManager : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// When we want to change the color of the canvas or object to be painted,
+    /// we use this function according to the color parameter.
+    /// </summary>
+    /// <param name="color"></param>
     public void SetBrushColor(string color)
     {
         UIManager.instance.isColorPanelOpen = true;

@@ -16,6 +16,8 @@ public class Stamp : MonoBehaviour
     public GameObject activeStamp;
     public bool canUserStamp;
 
+    
+    //Allows the image selected with the stamp to be copied to the mouse position.
     public void SetStamp( )
     {
         if (canUserStamp)
@@ -39,9 +41,7 @@ public class Stamp : MonoBehaviour
 
     public void OpenStampPanel()
     {
-        //UIManager.instance.isStampPanelOpen = true;
         canUserStamp = true;
-        
         UIManager.instance.OpenStampPanel();
     }
 }

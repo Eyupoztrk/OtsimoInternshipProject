@@ -6,6 +6,10 @@ using UnityEngine;
 
 public class StampedObject : MonoBehaviour
 {
+    /// <summary>
+    /// It works for the object to be stamped, and when that object is clicked,
+    /// it copies the object there according to the mouse position.
+    /// </summary>
     private void OnMouseDown()
     {
         if (Stamp.instance.canUserStamp)
@@ -15,7 +19,6 @@ public class StampedObject : MonoBehaviour
 
            var stamp = Instantiate(Stamp.instance.activeStamp, mousePos, quaternion.identity);
            stamp.GetComponent<SpriteRenderer>().sortingOrder++;
-           // stamp.GetComponent<SpriteRenderer>().sortingOrder = DrawManager.intance.brushes.Peek().GetComponent<LineRenderer>().sortingOrder +1;
         }
         
        
